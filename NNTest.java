@@ -1,18 +1,11 @@
-import java.io.BufferedReader;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
 import java.nio.charset.Charset;
-import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 
 public class NNTest {
 
 	public static void main(String[] args) throws IOException {
-		// TODO Auto-generated method stub
 		NeuralNetwork nn = new NeuralNetwork();
 		nn.setMaxNN(784);//TODO - waste
 		nn.setNumberOfLayers(3);
@@ -26,10 +19,10 @@ public class NNTest {
 		
 		//System.out.println(readFileS());
 		String[] weights = {w0 ,w1};
-		//nn.modelLoad(weights, biases);
+		nn.modelLoad(weights, biases);
 		
-		
-		nn.loadInputPickle("c:\\Users\\PorojaG\\Downloads\\test_data.pickle");
+		nn.loadDataFromMAT("c:/Users/PorojaG/Downloads/new_test_data.mat");
+		nn.testWithMATInput(10000);
 		
 		
 		//nn.initialize();
@@ -57,20 +50,6 @@ public class NNTest {
 			e.printStackTrace();
 		}
 		return content;
-	}
-	
-	private static String readFileS() throws IOException {
-		InputStream is = new FileInputStream("c:/Users/PorojaG/Downloads/weights0.txt");
-		
-		BufferedReader buf = new BufferedReader(new InputStreamReader(is));
-		String line = buf.readLine();
-		StringBuilder sb = new StringBuilder();
-		while(line != null){ sb.append(line).append("\n");
-		line = buf.readLine(); } String fileAsString = sb.toString();
-		//System.out.println("Contents : " + fileAsString);
-		return(fileAsString);
-
-		
 	}
 
 }
