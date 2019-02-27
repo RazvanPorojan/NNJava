@@ -51,15 +51,19 @@ public class NeuralNetwork {
 		weights = new ArrayList<double[][]>();
 		biases.add(null);
 		weights.add(null);
+		double mean = 0;
+		double variance = 1;
+		Random r = new Random();
 		
 		for(int i=1;i<numberOfLayers;i++) {//layer - skipping input layer
 			double[] b = new double[networkSize[i]];
 			double[][] w = new double[networkSize[i]][networkSize[i-1]];
-			for(int j=0;j<networkSize[i];j++) {//neuron				
-				b[j] = 0;
+			for(int j=0;j<networkSize[i];j++) {//neuron
+				
+				b[j] = mean + r.nextGaussian() * variance;
 				for(int k=0;k<networkSize[i-1];k++) {//neurons in the previous layer					
-					//System.out.printf("layer %d, neuron %d, link to neuron %d%n",i,j,k);					
-					w[j][k]= (double) Math.random();//TODO use xavier or other - negative? np.random.randn(layer_dims[l], layer_dims[l-1]) * 0.01
+					//System.out.printf("layer %d, neuron %d, link to neuron %d%n",i,j,k);
+					w[j][k]= mean + r.nextGaussian() * variance;;//TODO use xavier or other - negative? np.random.randn(layer_dims[l], layer_dims[l-1]) * 0.01
 				}
 			}
 			biases.add(i,b);
@@ -135,9 +139,9 @@ public class NeuralNetwork {
 				Matrix train_item = train_data.getMatrix(offset);
 				double[] input_item = MATtoArray(train_item);
 				//printDigit(input_item);
-				double[] labelVector = new double[10];
+				double[] labelVector = new double[10];//TODO - hardcoded
 				int label = 0;
-				for(int l=0;l<10;l++) {
+				for(int l=0;l<10;l++) {//TODO - hardcoded
 					labelVector[l] = train_data.getMatrix(offset,1).getDouble(l);
 					if(labelVector[l]==1) {
 						label = l;
@@ -173,7 +177,6 @@ public class NeuralNetwork {
 			nabla_b_sum.add(new double[networkSize[i]]);
 			nabla_w_sum.add(new double[networkSize[i]][networkSize[i-1]]);
 		}
-		System.out.println();
 	}
 	
 	public void updateWeights(List<double[]> nabla_b, List<double[][]> nabla_w, double learningRate, int miniBatchSize) {
@@ -283,7 +286,7 @@ public class NeuralNetwork {
 	 
 	private String shape(double[][] m) {
 		String s = String.format("(%d,%d)", m.length,m[0].length);
-		System.out.println();
+		System.out.println(s);
 		return s;
 	}
 
