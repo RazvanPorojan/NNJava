@@ -51,11 +51,11 @@ public class NNTest {
 		int size[] = {784,30,10}; //size of this instead of LayersNumber
 		nn.setNetworkSize(size);
 
-		//nn.initialize();
-		nn.modelLoad(getWeights(), getBiases());
+		nn.initialize();
+		//nn.modelLoad(getWeights(), getBiases());
 		nn.loadTrainDataFromMAT("c:/Users/PorojaG/Downloads/new_train_data.mat");
 		nn.loadTestDataFromMAT("c:/Users/PorojaG/Downloads/new_test_data.mat");//TODO - avoid null pointer if the data is not loaded
-		nn.trainAll(5, 2000, 3, 10000);
+		nn.trainAll(50, 10, 3, 10000);
 
 
 		System.out.flush();
