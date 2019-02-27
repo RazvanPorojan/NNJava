@@ -162,7 +162,7 @@ public class NeuralNetwork {
 				backProp(labelVector);		//uses activations[][] field so no output is necessary		
 			}
 			miniBatchCost = miniBatchCost / miniBatchSize * 100;
-			System.out.println(String.format("Cost for Minibatch %d from %d: %f", i, numberOfMiniBatches, miniBatchCost));
+			//System.out.printf("Cost for Minibatch %d from %d: %f\r\n", i, numberOfMiniBatches, miniBatchCost);
 			
 			updateWeights(nabla_b_sum, nabla_w_sum, learningRate, miniBatchSize);
 		}
