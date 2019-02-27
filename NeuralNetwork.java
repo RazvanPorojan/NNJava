@@ -18,7 +18,7 @@ import us.hebi.matlab.mat.types.Sources;
 
 
 public class NeuralNetwork {
-	private int numberOfLayers;//including input ant output
+	private int numberOfLayers;//including input and output
 	private int networkSize[];//number of neurons for each layer including input and output
 
 	private List<double[]> biases;
@@ -63,7 +63,7 @@ public class NeuralNetwork {
 				b[j] = mean + r.nextGaussian() * variance;
 				for(int k=0;k<networkSize[i-1];k++) {//neurons in the previous layer					
 					//System.out.printf("layer %d, neuron %d, link to neuron %d%n",i,j,k);
-					w[j][k]= mean + r.nextGaussian() * variance;;//TODO use xavier or other - negative? np.random.randn(layer_dims[l], layer_dims[l-1]) * 0.01
+					w[j][k]= mean + r.nextGaussian() * variance;
 				}
 			}
 			biases.add(i,b);
@@ -78,8 +78,8 @@ public class NeuralNetwork {
 		weights.add(null);
 		for(int i=1;i<numberOfLayers;i++) {//layer - skipping input layer
 			System.out.println(String.format("Loading parameters for Layer %d", i));
-			biases.add(getBiasesFromJSON(biasesS[i-1]));//support multiple hidden layers
-			weights.add(getWeightsFromJSON(weightsS[i-1],networkSize[i],networkSize[i-1]));//support multiple hidden layers?
+			biases.add(getBiasesFromJSON(biasesS[i-1]));
+			weights.add(getWeightsFromJSON(weightsS[i-1],networkSize[i],networkSize[i-1]));
 		}
 		System.out.println("Done.");
 	}
@@ -209,7 +209,7 @@ public class NeuralNetwork {
 		double sP[] = sigmoid_primes(zs.get(k));
 		printArray("cD", cD);
 		printArray("sP", sP);
-		double[] delta = hadamard(cD, sP); // oki hadamard TODO - repace dot in jupiter with matmul or *
+		double[] delta = hadamard(cD, sP);
 		printArray("delta", sP);
 		
 		double[] dB = nabla_b_sum.get(k);
@@ -218,7 +218,7 @@ public class NeuralNetwork {
 		nabla_b_sum.set(k, dB);
 		
 		double[][] dW = nabla_w_sum.get(k);
-		dW = matrixAdd(dW,multiplyMatrices(arrayToMatrix(delta), arrayToMatrix(activations.get(k-1), true))); //TODO replace hardcoded
+		dW = matrixAdd(dW,multiplyMatrices(arrayToMatrix(delta), arrayToMatrix(activations.get(k-1), true)));
 		nabla_w_sum.set(k, dW);
 
 		//each other layers
@@ -229,7 +229,6 @@ public class NeuralNetwork {
 			//delta = np.dot(self.weights[-l+1].transpose(), delta) * sp
 			delta = matrixToArray(multiplyMatrices(transpose(weights.get(l+1)), arrayToMatrix(delta)));
 			delta = hadamard(delta , sp);
-			// pusesem 30,10,1 ????  la vectori 1 tb sa fie la mijloc - TODO check if weights[i][i-1] is indeed what we want (vector with weights between layer i and previous layer)
 			
 			double[] ddB = nabla_b_sum.get(l);
 			ddB = arrayAdd(ddB, delta);
