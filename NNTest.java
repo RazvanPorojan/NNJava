@@ -18,11 +18,9 @@ public class NNTest {
 		NeuralNetwork nn = new NeuralNetwork();
 		//nn.setMaxNN(784);//TODO - waste
 		
-		int size[] = {784,30,10}; //size of this instead of LayersNumber
+		int size[] = {784,30,10};
 		nn.setNetworkSize(size);
-		
-		
-
+	
 		nn.modelLoad(getWeights(), getBiases());
 
 		nn.loadTestDataFromMAT("c:/Users/PorojaG/Downloads/new_test_data.mat");
@@ -48,7 +46,7 @@ public class NNTest {
 	public static void train() throws IOException{
 		NeuralNetwork nn = new NeuralNetwork();
 
-		int size[] = {784,30,10}; //size of this instead of LayersNumber
+		int size[] = {784,30,10};
 		nn.setNetworkSize(size);
 
 		nn.initialize();
