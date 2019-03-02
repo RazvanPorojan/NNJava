@@ -49,54 +49,15 @@ public class NNTest {
 		nn.initialize();
 		//nn.modelLoad(getWeights(), getBiases());
 		nn.loadTrainDataFromMAT("new_train_data.mat");
-		nn.loadTestDataFromMAT("new_test_data.mat");//TODO - avoid null pointer if the data is not loaded
+		nn.loadTestDataFromMAT("new_test_data.mat");
 		nn.trainAll(50, 10, 3, 10000);
 
 
 		System.out.flush();
 	}
 
-	//@Test
-	public static void testMatrix() {
-		NeuralNetwork nn = new NeuralNetwork();
-		double[] a = {1.0, 2.0, 3.0};
-		double[][] aM = nn.arrayToMatrix(a);
-		double[] b = nn.matrixToArray(aM);
+	
 
-
-		System.out.println(b);
-
-		double[][] aMt = nn.arrayToMatrix(a, true);
-		double[] bt = nn.matrixToArray(aMt, true);
-
-		System.out.println(bt);
-
-		double[][] as = nn.multiplyMatrices(aM, aMt);
-
-		System.out.println(as);
-
-		//TODO - test tensor
-
-		double[][][] tens = new double[3][3][3];
-		tens = initTens(tens);
-		//double[][][] tens2 = nn.tensDiv(tens, 2);
-		System.out.println(tens);
-
-	}
-
-	private static double[][][] initTens(double x[][][]) {
-		double z = 2.0;
-		double[][][] c = new double[x.length][x[0].length][x[0][0].length];
-		for(int i=0;i<x.length;i++) {
-			for(int j=0;j<x[0].length;j++) {				
-				for(int k=0;k<x[0][0].length;k++) {
-					c[i][j][k] = z;
-					z += 2;
-				}
-			}
-		}
-		return c;
-	}
 	static String readFile(String path, Charset encoding) 
 			throws IOException 
 	{
