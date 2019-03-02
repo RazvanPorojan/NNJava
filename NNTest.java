@@ -37,8 +37,8 @@ public class NNTest {
 	}
 
 	private static String[] getWeights() {
-		String w0 = readFile("c:/Users/PorojaG/Downloads/weights0.json");//, Charset.defaultCharset());
-		String w1 = readFile("c:/Users/PorojaG/Downloads/weights1.json");//, Charset.defaultCharset());
+		String w0 = readFile("weights0.json");//, Charset.defaultCharset());
+		String w1 = readFile("weights1.json");//, Charset.defaultCharset());
 		String[] weights = {w0 ,w1};
 		return weights;
 	}
