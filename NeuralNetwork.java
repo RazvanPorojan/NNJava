@@ -1,5 +1,6 @@
 //TODO - compare to API
 //TODO - important question do we need lists when we have arrays of arrays as 2D arrays?
+//TODO - add suffle to implement real SGD
 
 import java.io.IOException;
 import java.util.ArrayList;
